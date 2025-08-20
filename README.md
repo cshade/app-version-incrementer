@@ -9,6 +9,19 @@
 - Android `build.gradle` (`versionName`)
 - Uses the `packaging` library for robust version parsing.
 
+## Project Structure
+
+```text
+app-version-incrementer
+├── src
+│   ├── increment_app_version.py
+├── tests
+│   ├── test_increment_app_version.py
+├── package.json
+├── requirements.txt
+└── README.md
+```
+
 ## Requirements
 
 - Python 3.7+
