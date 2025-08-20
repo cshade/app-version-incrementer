@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 import sys
 import plistlib
-import re
+from packaging.version import Version
 
 def increment_version(version: str, part: str) -> str:
     """Increment the semantic version based on the specified part (major, minor, patch)."""
-    major, minor, patch = map(int, version.split('.'))
+    v = Version(version)
+    major, minor, patch = v.major, v.minor, v.micro
 
     if part == 'major':
         major += 1
@@ -37,19 +38,25 @@ def update_ios_version(plist_path: str, part: str):
 def update_android_version(gradle_path: str, part: str):
     """Update the versionName in build.gradle."""
     with open(gradle_path, 'r') as gradle_file:
-        gradle_content = gradle_file.read()
+        gradle_content = gradle_file.readlines()
 
-    match = re.search(r'versionName\s+"(\d+\.\d+\.\d+)"', gradle_content)
-    if not match:
+    new_gradle_content = []
+    found = False
+    for line in gradle_content:
+        if 'versionName' in line:
+            parts = line.split('"')
+            if len(parts) >= 3:
+                current_version = parts[1]
+                new_version = increment_version(current_version, part)
+                line = line.replace(current_version, new_version)
+                found = True
+        new_gradle_content.append(line)
+
+    if not found:
         raise ValueError("versionName not found in build.gradle")
 
-    current_version = match.group(1)
-    new_version = increment_version(current_version, part)
-
-    new_gradle_content = re.sub(r'versionName\s+"\d+\.\d+\.\d+"', f'versionName "{new_version}"', gradle_content)
-
     with open(gradle_path, 'w') as gradle_file:
-        gradle_file.write(new_gradle_content)
+        gradle_file.writelines(new_gradle_content)
 
     print(f"Updated Android version to {new_version} in {gradle_path}")
 
