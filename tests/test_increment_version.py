@@ -1,5 +1,8 @@
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '../src')))
 import pytest
-from src.increment_app_version import increment_version
+from increment_app_version import increment_version
 
 def test_increment_major():
     assert increment_version("1.2.3", "major") == "2.0.0"
