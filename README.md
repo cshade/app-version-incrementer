@@ -109,6 +109,28 @@ This script will:
 
 If the script encounters an error (e.g., missing version string), it will print an error message and exit with code 1.
 
+## Running Tests
+
+This project uses [pytest](https://pytest.org/) for unit testing. All tests are located in the `tests/` folder.
+
+To run all tests, use:
+
+```bash
+pytest
+```
+
+If you need to install pytest, run:
+
+```bash
+pip install -r requirements.txt
+```
+
+Test files are named with the pattern `test_*.py` and cover the main functionality of the scripts in `src/`.
+
+## Contributing
+
+Feel free to submit issues or pull requests if you have suggestions or improvements for the project.
+
 ## License
 
 MIT
