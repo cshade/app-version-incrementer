@@ -52,7 +52,7 @@ This will make the `increment-app-version` command globally available on your sy
 
 ## Usage
 
-Run the script from the `src` directory:
+In general, the script can be run as follows:
 
 ```bash
 python increment_app_version.py <part>
@@ -64,13 +64,41 @@ Where `<part>` is one of:
 - `minor`
 - `patch`
 
-### Example
+This will increment the minor version in both iOS and Android project files.
 
-```bash
-python increment_app_version.py minor
+More ideally, add an npm script to your project's `package.json`:
+
+```json
+{
+  "scripts": {
+    "increment-version": "increment-app-version"
+  }
+}
 ```
 
-This will increment the minor version in both iOS and Android project files.
+And then run the script:
+
+```bash
+npm run increment-version -- <part>
+```
+
+Where `<part>` is one of:
+
+- `major`
+- `minor`
+- `patch`
+
+For example, the following will update the `minor` version number in the local project:
+
+```bash
+npm run increment-version -- minor
+```
+
+This script will:
+
+- Read the current build number from `Info.plist` and `build.gradle`.
+- Increment the build number by 1.
+- Write the updated build number back to both files.
 
 ## File Paths
 
