@@ -1,0 +1,15 @@
+{
+  "name": "app-version-incrementer",
+  "version": "1.0.0",
+  "description": "Automatically increment app version numbers for iOS and Android projects.",
+  "main": "index.js",
+  "bin": {
+    "increment-app-version": "./src/increment_app_version.py"
+  },
+  "scripts": {
+    "test": "echo \"No tests specified\" && exit 0"
+  },
+  "keywords": ["version", "increment", "ios", "android", "semantic-version"],
+  "author": "cshade",
+  "license": "MIT"
+}
