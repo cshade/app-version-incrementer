@@ -16,15 +16,15 @@ app-version-incrementer
 ├── src
 │   ├── increment_app_version.py
 ├── tests
-│   ├── test_increment_app_version.py
+│   ├── test_increment_version.py
 ├── package.json
-├── requirements.txt
+├── pyproject.toml
 └── README.md
 ```
 
 ## Requirements
 
-- Python 3.7+
+- Python 3.8+
 - `packaging` library
 
 ## Installation
@@ -33,16 +33,22 @@ app-version-incrementer
 
 ```bash
 git clone <repository-url>
-cd build-number-incrementer
+cd app-version-incrementer
 ```
 
-1. Install the required Python dependencies:
+1. Install the project:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install .
 ```
 
-1. Set up the project as a global npm package using `npm link`:
+If you want the test dependencies as well, install the development extra:
+
+```bash
+python -m pip install -e ".[dev]"
+```
+
+1. Optionally, set up the project as a global npm package using `npm link`:
 
 ```bash
 npm link
@@ -55,7 +61,7 @@ This will make the `increment-app-version` command globally available on your sy
 In general, the script can be run as follows:
 
 ```bash
-python increment_app_version.py <part>
+increment-app-version <part>
 ```
 
 Where `<part>` is one of:
@@ -64,7 +70,7 @@ Where `<part>` is one of:
 - `minor`
 - `patch`
 
-This will increment the minor version in both iOS and Android project files.
+This will increment the selected semantic version component in both iOS and Android project files.
 
 More ideally, add an npm script to your project's `package.json`:
 
@@ -96,9 +102,9 @@ npm run increment-version -- minor
 
 This script will:
 
-- Read the current build number from `Info.plist` and `build.gradle`.
-- Increment the build number by 1.
-- Write the updated build number back to both files.
+- Read the current version from `Info.plist` and `build.gradle`.
+- Increment the requested semantic version component.
+- Write the updated version back to both files.
 
 ## File Paths
 
@@ -122,7 +128,7 @@ pytest
 If you need to install pytest, run:
 
 ```bash
-pip install -r requirements.txt
+python -m pip install -e ".[dev]"
 ```
 
 Test files are named with the pattern `test_*.py` and cover the main functionality of the scripts in `src/`.
