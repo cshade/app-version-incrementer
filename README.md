@@ -48,6 +48,12 @@ If you want the test dependencies as well, install the development extra:
 python -m pip install -e ".[dev]"
 ```
 
+To enable the git hooks for linting and formatting, then run:
+
+```bash
+pre-commit install
+```
+
 1. Optionally, set up the project as a global npm package using `npm link`:
 
 ```bash
@@ -129,6 +135,16 @@ If you need to install pytest, run:
 
 ```bash
 python -m pip install -e ".[dev]"
+```
+
+## Code Quality
+
+This project uses `pre-commit` with local `ruff` hooks for linting and formatting.
+
+To run the hooks manually:
+
+```bash
+pre-commit run --all-files
 ```
 
 Test files are named with the pattern `test_*.py` and cover the main functionality of the scripts in `src/`.
